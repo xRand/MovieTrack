@@ -1,0 +1,2 @@
+framework\src\Illuminate\Foundation\Auth\AuthenticatedUsers.php
+auth.register, auth.login
