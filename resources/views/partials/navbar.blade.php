@@ -22,7 +22,7 @@
                 @if(Auth::check())
                     {{--adminpanel--}}
                     @if(Auth::user()->isAnAdmin())
-                        <li><a href="{{ URL::to('admin/admin_panel') }}">Admin Panel</a></li>
+                        <li><a href="{{ URL::to('admin') }}">Admin Panel</a></li>
                     @endif
 
 

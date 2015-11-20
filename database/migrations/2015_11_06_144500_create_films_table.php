@@ -19,7 +19,7 @@ class CreateFilmsTable extends Migration
             $table->text('description');
             $table->text('genre');
             $table->string('director');
-            $table->double('rating')->nullable();
+            $table->decimal('rating')->default(NULL);
             $table->text('poster');
             $table->timestamps();
         });

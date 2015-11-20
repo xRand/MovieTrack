@@ -45,6 +45,16 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany('App\Film', 'subscription')->withTimestamps();
     }
 
+    //find user by id
+    public function scopeFindById($query, $id)
+    {
+        $user = $query->where('id', '=', $id)->first();
+        if (is_null($user)) {
+            abort(404);
+        }
+        return $user;
+    }
+
     //temporary
     public function isAnAdmin()
     {

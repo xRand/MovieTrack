@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', 'FilmController@index');
 
 // Registration routes...
@@ -24,16 +25,19 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 
 //Administration
-Route::get('admin/admin_panel', function(){
-    return view('admin/admin_panel');
-});
+Route::get('admin', 'AdminController@index');
+Route::get('film/create', 'AdminController@createFilm');
+Route::get('admin/users', 'AdminController@userMng');
+Route::get('admin/comments', 'AdminController@commentMng');
+
+Route::patch('admin/users', 'AdminController@switchUserStatus');
 
 
 // Films routes...
 //Route::resource('film','FilmController');
 
 Route::post('film', 'FilmController@store');
-Route::get('film/create', 'FilmController@create');
+//Route::get('film/create', 'FilmController@create');
 
 Route::get('film/{id}', 'FilmController@show');
 Route::patch('film/{id}', 'FilmController@update');

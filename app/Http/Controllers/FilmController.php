@@ -47,12 +47,6 @@ class FilmController extends Controller
         return view('film/view', compact('film', 'sub'));
     }
 
-    //Show  create page form (admin panel)
-    public function create()
-    {
-        return view('film/create');
-    }
-
     //save new film and redirect to film view
     public function store(FilmRequest $request)
     {
@@ -96,5 +90,7 @@ class FilmController extends Controller
 
         return Redirect::back()->with('msg', ($status == 'sub' ? 'Subscribed!' : 'Unsubscribed!'));
     }
+
+
 
 }
