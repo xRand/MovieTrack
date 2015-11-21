@@ -18,8 +18,8 @@ class FilmController extends Controller
     //Create new film controller instance
     public function __construct()
     {
-        $this->middleware('auth', ['only' => 'switchSubStatus']);
-        $this->middleware('admin', ['except' => ['index', 'show', 'switchSubStatus']]);
+        $this->middleware('auth', ['only' => 'switchSubStatus', 'comment']);
+        $this->middleware('admin', ['except' => ['index', 'view', 'switchSubStatus', 'comment', 'rate']]);
     }
 
     //show film list (10 films)
@@ -35,16 +35,24 @@ class FilmController extends Controller
     }
 
     //show a single film view
-    public function show($id)
+    public function view($id)
     {
         $film = Film::findById($id);
+        $comments = $film->comments()->orderBy('comments.created_at', 'desc')->get();
 
+
+       // dd($comments);
       //  $film =  $film->;
       //  $releaseDate = $film->date->diffForHumans();
         //temp
-        if(Auth::check()) $sub = $film->getSubStatus();
-
-        return view('film/view', compact('film', 'sub'));
+        if(Auth::check())
+        {
+            $user_id = Auth::user()->id;
+            $rate = $film->rating()->find($user_id)->get();
+            $sub = $film->getSubStatus();
+        }
+        dd($rate);
+        return view('film/view', compact('film', 'comments', 'sub', 'rate'));
     }
 
     //save new film and redirect to film view
@@ -82,15 +90,35 @@ class FilmController extends Controller
     {
         $film = Film::findById($id);
         $user_id = Auth::user()->id;
-
         if ($status == 'sub')
             $film->users()->attach($user_id);
         else
             $film->users()->detach($user_id);
-
         return Redirect::back()->with('msg', ($status == 'sub' ? 'Subscribed!' : 'Unsubscribed!'));
     }
 
+    //add new comment
+    public function comment($id)
+    {
+        $comment = Input::get('comment');
+        $film = Film::findById($id);
+        $user_id = Auth::user()->id;
+        $film->comments()->attach($user_id, array('comment' => $comment));
+        return Redirect::back();
+    }
 
+    //add new rate
+    public function rate($id)
+    {
+        if(Request::ajax()){
 
+            $rate = Input::get('rate');
+            $film = Film::findById($id);
+            $user_id = Auth::user()->id;
+            $film->rating()->attach($user_id, array('rate' => $rate));
+
+            return true;
+        }
+        return false;
+    }
 }

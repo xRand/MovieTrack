@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Subscription extends Model
 {
     //
-    public function films()
+    public function switchStatus($id, $status)
     {
-        $this->belongsToMany('App/Films');
+
     }
 }

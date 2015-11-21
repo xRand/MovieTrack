@@ -30,6 +30,7 @@ Route::get('film/create', 'AdminController@createFilm');
 Route::get('admin/users', 'AdminController@userMng');
 Route::get('admin/comments', 'AdminController@commentMng');
 
+Route::delete('admin/comments', 'AdminController@deleteComment');
 Route::patch('admin/users', 'AdminController@switchUserStatus');
 
 
@@ -39,8 +40,11 @@ Route::patch('admin/users', 'AdminController@switchUserStatus');
 Route::post('film', 'FilmController@store');
 //Route::get('film/create', 'FilmController@create');
 
-Route::get('film/{id}', 'FilmController@show');
+Route::get('film/{id}', 'FilmController@view');
 Route::patch('film/{id}', 'FilmController@update');
+
+Route::put('film/{id}', 'FilmController@rate');
+Route::post('film/{id}', 'FilmController@comment');
 
 Route::get('film/{id}/edit', 'FilmController@edit');
 

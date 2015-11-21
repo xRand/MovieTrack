@@ -51,7 +51,7 @@ class Film extends Model
     }
 
 
-    //A films that belong to the user.
+    //Users that subscribed to the film
     public function users()
     {
         return $this->belongsToMany('App\User', 'subscription')->withTimestamps();
@@ -65,7 +65,25 @@ class Film extends Model
         else return false;
     }
 
+    //Get user rate for the film
+//    public function getUserRate()
+//    {
+//        $user_id = Auth::user()->id;
+//        if ($this->users->find($user_id)) return true;
+//        else return false;
+//    }
 
+    //Comments that belong to the film
+    public function comments()
+    {
+        return $this->belongsToMany('App\User', 'comments')->withPivot('comment')->withTimestamps();
+    }
+
+    //Rating that belong to the film
+    public function rating()
+    {
+        return $this->belongsToMany('App\User', 'rating')->withPivot('rate');
+    }
 
 
 

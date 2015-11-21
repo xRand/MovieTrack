@@ -45,6 +45,12 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany('App\Film', 'subscription')->withTimestamps();
     }
 
+    //Comments that belong to the user
+//    public function comments()
+//    {
+//        return $this->belongsToMany('App\Film', 'comments');
+//    }
+
     //find user by id
     public function scopeFindById($query, $id)
     {

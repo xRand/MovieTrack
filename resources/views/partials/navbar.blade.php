@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{{ URL::to('') }}">Home</a></li>
-                <li><a href="film/22">abc</a></li>
+                <li><a href="">abc</a></li>
                 <li><a href="">abc</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
